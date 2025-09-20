@@ -1,0 +1,36 @@
+# Unity - Ignorar carpetas generadas automáticamente
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Uu]ser[Ss]ettings/
+
+
+# Archivos generados por Visual Studio / Rider
+.vs/
+.vscode/
+.idea/
+
+# Archivos temporales / de compilación
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Otros
+sysinfo.txt
+AssetStoreTools*
+
