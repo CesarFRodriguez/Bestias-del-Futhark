@@ -1,0 +1,10 @@
+# ninja log v5
+395	20699	7802710240096682	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	1d0ae5eaa55fb9fd
+379	20791	7802710239950370	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4c7c9c857b6d459f
+14	21090	7802710245187274	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	d168558aab430892
+308	22058	7802710253443724	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	cfcbacbee6a46ce5
+412	24282	7802710277803288	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9f0163189327a819
+200	25195	7802710287342300	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	ddfab24dffc113c5
+20793	31804	7802710353651802	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	3fb4a34fd09ae89a
+20742	32798	7802710363595250	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	439c097789e55241
+32801	33461	7802710370943434	C:/Users/juanp/OneDrive/Documentos/GitHub/Bestias-del-Futhark/Bestias del Futhark/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/286u5e49/obj/arm64-v8a/libgame.so	367fa38c877640a2
