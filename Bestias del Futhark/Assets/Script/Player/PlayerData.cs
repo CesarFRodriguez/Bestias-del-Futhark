@@ -15,6 +15,10 @@ public class PlayerData : MonoBehaviour
     public Toggle useWeaponToggle;
     private bool useWeapon = false;
     public Button sellWeaponButton;
+
+    // Bonos activados por el dado 
+    public bool weaponBonus = false;
+    public bool potionBonus = false;
     void Start()
     {
         sellWeaponButton.onClick.AddListener(SellWeapon);
