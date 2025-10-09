@@ -1084,8 +1084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 827709106}
-  diceCost: 5
-  comodinCost: 5
+  diceCost: 1
   resultText: {fileID: 1009405910}
 --- !u!1 &391816963
 GameObject:

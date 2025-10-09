@@ -157,6 +157,9 @@ public class MechanicsManager : MonoBehaviour
 
         deckManager.UpdateRemain();
         UpdateSkipButton();
+        
+        if (playerData != null)
+            playerData.AdvanceTurn();
     }
 
     private void ReplaceCard(int index)
@@ -212,7 +215,10 @@ public class MechanicsManager : MonoBehaviour
     }
     private void AdvanceRoom()
     {
+        if (playerData != null)
+            playerData.AdvanceTurn();
         if (deckManager == null || cardManager == null) return;
+
         if (deckManager.remain.Count == 0)
         {
             GameOver("You won! No more cards in the deck.");
