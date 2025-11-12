@@ -585,7 +585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &491734779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,7 +1028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &585395097
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1701,8 +1701,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipText: {fileID: 591830794}
   portText: {fileID: 1648634364}
+  statusText: {fileID: 2145258365}
+  startHostButton: {fileID: 1395571714}
+  startHostButtonText: {fileID: 1913300145}
   p2p: {fileID: 0}
   HostPanel: {fileID: 585395096}
+  sceneToLoad: Multiplayer
   defaultPort: 1225
 --- !u!1 &967804133
 GameObject:
@@ -2250,7 +2254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1494224960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2468,6 +2472,7 @@ MonoBehaviour:
   portInput: {fileID: 486270511}
   statusText: {fileID: 1213719716}
   connectButton: {fileID: 1506862853}
+  connectButtonText: {fileID: 0}
   ClientPanel: {fileID: 1494224959}
 --- !u!4 &1516968294
 Transform:
@@ -3456,7 +3461,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -28.598099, w: 0}
+  m_margin: {x: -381.7373, y: 0, z: -391.35406, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

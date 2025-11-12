@@ -7,6 +7,7 @@ public class ClientManager : MonoBehaviour
     public TMP_InputField ipInput, portInput;
     public TMP_Text statusText;
     public Button connectButton;
+    public TMP_Text connectButtonText;
     public GameObject ClientPanel;
     private NetworkManagerP2P network;
 
@@ -34,6 +35,11 @@ public class ClientManager : MonoBehaviour
 
         if (statusText != null)
             statusText.text = "Waiting for connection...";
+        if (network != null)
+        {
+            // Suscripción única al recibir mensajes
+            network.OnMessageReceived += HandleNetworkMessage;
+        }
     }
         private void OnConnectPressed()
     {
@@ -54,7 +60,6 @@ public class ClientManager : MonoBehaviour
 
         statusText.text = $"Connecting to {ip}:{port} ...";
         Debug.Log($"[CLIENT] Trying to connect to {ip}:{port}");
-
         network.ConnectTo(ip, port, OnConnectionResult);
     }
     private void OnConnectionResult(bool success)
@@ -62,6 +67,8 @@ public class ClientManager : MonoBehaviour
         if (success)
         {
             statusText.text = "Connected to host!";
+            connectButton.interactable = false;
+            connectButtonText.text = "Waiting for host...";
             Debug.Log("[CLIENT] Successfully connected to host.");
             gameObject.SetActive(false); // Oculta el panel
         }
@@ -71,4 +78,20 @@ public class ClientManager : MonoBehaviour
             Debug.LogError("[CLIENT] Could not connect to host.");
         }
     }
+    private void HandleNetworkMessage(MessageData msg)
+    {
+        Debug.Log($"[CLIENT] Mensaje recibido: {msg.type}");
+
+        switch (msg.type)
+        {
+            case "CHANGE_SCENE":
+               UnityEngine.SceneManagement.SceneManager.LoadScene(msg.payload);
+                break;
+
+            default:
+                Debug.LogWarning($"[CLIENT] Tipo de mensaje desconocido: {msg.type}");
+                break;
+        }
+    }
+
 }

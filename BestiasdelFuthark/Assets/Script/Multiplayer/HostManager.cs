@@ -3,12 +3,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using TMPro;
+using UnityEngine.UI;
 
 public class HostManager : MonoBehaviour
 {
     public TMP_Text ipText, portText;
+    public TMP_Text statusText;
+    public Button startHostButton;
+    public TMP_Text startHostButtonText;
     public NetworkManagerP2P p2p;
     public GameObject HostPanel;
+    public string sceneToLoad;
 
     public string defaultPort = "1225";
 
@@ -19,6 +24,9 @@ public class HostManager : MonoBehaviour
 
     void Start()
     {
+        startHostButton.onClick.AddListener(NextScene);
+        startHostButton.interactable = false;
+        startHostButtonText.text = "Waiting for players...";
         if (p2p == null)
         {
             Debug.LogError("[HOST] NetworkManagerP2P not found in scene.");
@@ -35,6 +43,15 @@ public class HostManager : MonoBehaviour
     {
         if (p2p != null)
             HostPanel.SetActive(p2p.isHost);
+        if (p2p.connection.IsCreated)
+        {
+            statusText.text = "A player has connected!";
+            startHostButton.interactable = true;
+            startHostButtonText.text = "Start Game";
+        }else
+        {
+            statusText.text = "...";
+        }
     }
 
     void InicializarHost()
@@ -54,7 +71,6 @@ public class HostManager : MonoBehaviour
             p2p.StartHost(ushort.Parse(defaultPort)); // 👈 función nueva que ahora añadimos
         }
     }
-
     string GetLocalIPAddress()
     {
         try
@@ -68,5 +84,13 @@ public class HostManager : MonoBehaviour
             Debug.LogWarning("Could not detect local IP address.");
             return "Not detected";
         }
+    }
+    void NextScene()
+    {
+        p2p.SendMessage(new MessageData {
+            type = "CHANGE_SCENE",
+            payload = sceneToLoad
+        });
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneToLoad);
     }
 }
