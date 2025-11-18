@@ -20,12 +20,9 @@ public class DeckManagerMult : MonoBehaviour
             Debug.LogError("No se asignó un archivo CSV en el inspector.");
         }
         remain = new List<Card>(deck);
+        totalCards = deck.Count;
         remain.RemoveAt(remain.Count - 1);
         remain.Shuffle();
-    }
-    public int getTotalCards()
-    {
-        return totalCards = deck.Count;
     }
     void LoadCSV(TextAsset file)
     {
@@ -61,7 +58,6 @@ public class DeckManagerMult : MonoBehaviour
             remain.Shuffle();
         }
     }
-
     public Card defaultCard()
     {
         return deck[totalCards - 1];

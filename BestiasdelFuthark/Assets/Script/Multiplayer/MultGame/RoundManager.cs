@@ -39,11 +39,11 @@ public class RoundManager : MonoBehaviour
                 break;
             case 2:
                 roundInfo.text = "Protect Your -----.";
-                actTime = timeRest+ 1f;
+                actTime = timeDef+ 1f;
                 break;
             default:
                 roundInfo.text = "Prepare Yourself...";
-                actTime = timeDef + 1f;
+                actTime = timeRest + 1f;
                 break;
         }
         return actTime;

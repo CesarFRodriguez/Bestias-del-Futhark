@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &31442036
 GameObject:
@@ -259,6 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 68950598}
+  - component: {fileID: 68950599}
   m_Layer: 0
   m_Name: NetMsgManager
   m_TagString: Untagged
@@ -281,6 +283,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2107158110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &68950599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68950597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f35d3b8ac5c4348b6e3912f47014d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  receivedCards: []
 --- !u!1 &180213800
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &200632665
 GameObject:
@@ -873,6 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &413368162
 GameObject:
@@ -973,6 +990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &447561390
 GameObject:
@@ -2064,9 +2082,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rm: {fileID: 1824158680}
   render: {fileID: 712029839}
-  hand: {fileID: 0}
-  deck: {fileID: 0}
-  roomCards: []
+  hand: {fileID: 1217385685}
+  deckManager: {fileID: 0}
+  netListener: {fileID: 68950599}
+  roomCards:
+  - {fileID: 1888315017}
+  - {fileID: 1390228033}
+  - {fileID: 1898111858}
+  - {fileID: 852563717}
+  roomCardData: []
+  player: {fileID: 1562870548}
+  roomCardBehaviours: []
+  selectedIndex: -1
 --- !u!1 &723325682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2216,6 +2243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &864113199
 GameObject:
@@ -2316,6 +2344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &874189264
 GameObject:
@@ -3408,11 +3437,14 @@ MonoBehaviour:
   - {fileID: 192732036}
   - {fileID: 1692508497}
   - {fileID: 13217051}
+  cardsInRoom: []
   hand: []
+  tempIndex: 0
+  selectedIndex: -1
   deckManager: {fileID: 1108257630}
   renderManager: {fileID: 1217385684}
-  roundManager: {fileID: 0}
-  roomManager: {fileID: 0}
+  roundManager: {fileID: 1824158680}
+  roomManager: {fileID: 712029840}
 --- !u!1 &1225239414
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,6 +4586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &1412707968
 GameObject:
@@ -5528,6 +5561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &1649186956
 GameObject:
@@ -5970,6 +6004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &1702175917
 GameObject:
@@ -6205,6 +6240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &1769961623
 GameObject:
@@ -6665,8 +6701,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   round: 0
   timePrep: 5
-  timeDef: 5
-  timeRest: 5
+  timeDef: 60
+  timeRest: 1
   timeLeft: 0
   isReady: 1
   nextRound: {fileID: 1769961625}
@@ -6907,6 +6943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &1898111858
 GameObject:
@@ -7007,6 +7044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   isUsed: 0
+  isFree: 1
   hoverDistance: 0.05
 --- !u!1 &1978542752
 GameObject:

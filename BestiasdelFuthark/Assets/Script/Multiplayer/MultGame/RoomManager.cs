@@ -6,10 +6,30 @@ public class RoomManager : MonoBehaviour
     public RoundManager rm;
     public RenderManager render;
     public HandManager hand;
-    public DeckManagerMult deck;
-    public List<GameObject> roomCards = new List<GameObject>();
-    private int round = 0;
+    public DeckManagerMult deckManager;
+    public GameNetworkListener netListener;
 
+    public List<GameObject> roomCards = new List<GameObject>();
+    public List<Card> roomCardData = new List<Card>();
+    public PlayerManager player;
+
+    public List<CardBehaviourMult> roomCardBehaviours = new List<CardBehaviourMult>();
+
+    private int round = 0;
+    public int selectedIndex = -1;
+    private bool defPhaseStarted = false;
+
+    private void Start() {
+        deckManager = Object.FindFirstObjectByType<DeckManagerMult>();
+        for (int i = 0; i < roomCards.Count; i++)
+        {
+            roomCardData.Add(deckManager.defaultCard());
+        }
+        for (int i = 0; i < roomCards.Count; i++)
+        {
+            roomCardBehaviours.Add(roomCards[i].GetComponentInChildren<CardBehaviourMult>());
+        }
+    }
     private void Update() {
         round = rm.round;
         switch(round)
@@ -25,13 +45,101 @@ public class RoomManager : MonoBehaviour
                 break;
         }
     }
+
     private void prepPhase(){
+        defPhaseStarted = false;
+        UnblockAllCards();
+        BlockCardsIfSelected();
         
     }
     private void defensePhase(){
-        
+        selectedIndex = -1;
+        UnblockAllCards();
+        getEnemyCards();
+        List<bool> selected = boolChecker();
+        if(selectedIndex != -1){
+            if(roomCardBehaviours[selectedIndex].isSelected)
+            {
+                roomCardBehaviours[selectedIndex].isUsed = true;
+                player.getCard(roomCardData[selectedIndex]);
+            }
+        }
+        defPhaseStarted = true;
     }
+
     private void breakPhase(){
-        
+        selectedIndex = -1;
+        BlockAllCards();
+    }
+
+    public void ChangeCard(int index, Card cardInfo)
+    {
+        render.RenderCard(cardInfo, roomCards[index]);
+        roomCardData[index] = cardInfo;
+    }
+    private void BlockCardsIfSelected()
+    {
+        List<bool> selected = boolChecker();
+        if (selected.Contains(true))
+        {
+        for (int i = 0; i < roomCardBehaviours.Count; i++)
+            {
+                roomCardBehaviours[i].isFree = false;
+            }
+        }else{
+            selectedIndex = -1;
+            for (int i = 0; i < roomCardBehaviours.Count; i++)
+            {
+                roomCardBehaviours[i].isFree = true;
+            }
+        }
+    }
+    private List<bool> boolChecker()
+    {
+        List<bool> selected = new List<bool>();
+        for (int i = 0; i < roomCardBehaviours.Count; i++)
+        {
+            if(roomCardBehaviours[i].isSelected){
+                selected.Add(true);
+                selectedIndex = i;
+            } else {
+                selected.Add(false);
+            }
+        }
+        return selected;
+    }
+    private void BlockAllCards()
+    {
+        for (int i = 0; i < roomCardBehaviours.Count; i++)
+        {
+            roomCardBehaviours[i].isUsed = true;
+        }
+    }
+    private void UnblockAllCards()
+    {
+        for (int i = 0; i < roomCardBehaviours.Count; i++)
+        {
+            if(!defPhaseStarted && roomCardData[i].cardID != "B") roomCardBehaviours[i].isUsed = false;
+        }
+    }
+    private void getEnemyCards()
+    {
+        if(netListener.receivedCards.Count == roomCardData.Count)
+        {
+            for (int i = 0; i < roomCardData.Count; i++)
+            {
+                roomCardData[i] = netListener.receivedCards[i];
+                render.RenderCard(roomCardData[i], roomCards[i]);
+            }
+            netListener.receivedCards.Clear();
+        }
+        else
+        {
+            for (int i = 0; i < roomCardData.Count; i++)
+            {
+                roomCardData[i] = deckManager.deck[15];
+                render.RenderCard(deckManager.deck[15], roomCards[i]);
+            }
+        }
     }
 }

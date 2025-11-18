@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameNetworkListener : MonoBehaviour
 {
     private NetworkManagerP2P network;
-
+    public List<Card> receivedCards = new List<Card>();
     private void Start()
     {
         network = Object.FindFirstObjectByType<NetworkManagerP2P>();
