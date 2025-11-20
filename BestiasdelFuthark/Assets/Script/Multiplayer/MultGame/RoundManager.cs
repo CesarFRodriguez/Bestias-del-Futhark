@@ -9,18 +9,29 @@ public class RoundManager : MonoBehaviour
     public float timeDef = 30.0f;
     public float timeRest = 5.0f;
     public float timeLeft = 0f;
-    public bool isReady = true;
     public Button nextRound;
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI roundInfo;
 
+<<<<<<< HEAD
+=======
+    public bool ready = false;
+    public bool enemyReady = false;
+    public GameNetworkListener netListener;
+>>>>>>> 46daeb54dbc27ab5e5254737c173cf68c639b5ee
     private void Start() {
         nextRound.onClick.AddListener(NextRound);
     }
     private void Update() {
+<<<<<<< HEAD
         nextRound.interactable = isReady;
 
+=======
+        if (round != 0) nextRound.interactable = false; else nextRound.interactable = true;
+        if (round == 0) ReadyChecker();
+>>>>>>> 46daeb54dbc27ab5e5254737c173cf68c639b5ee
         timeLeft += Time.deltaTime;
+        netListener.enemyReady = enemyReady;
         float remainingTime = actualTime(round);
         toTime(timeLeft);
         if(timeLeft > remainingTime){
@@ -69,7 +80,30 @@ public class RoundManager : MonoBehaviour
     }
 
     public void NextRound(){
+<<<<<<< HEAD
         if(round > 3) round = -1;
         round++;
+=======
+        ready = true;
+    }
+
+    public void PassRound(){
+        if(round == 0)
+        {
+            round = 1;
+            timeLeft = 0;
+            ready = false;
+            enemyReady = false;
+        }
+    }
+
+    private void ReadyChecker()
+    {
+        if(ready) nextRound.interactable = false;
+        if(ready && enemyReady)
+        {
+            PassRound();
+        }
+>>>>>>> 46daeb54dbc27ab5e5254737c173cf68c639b5ee
     }
 }

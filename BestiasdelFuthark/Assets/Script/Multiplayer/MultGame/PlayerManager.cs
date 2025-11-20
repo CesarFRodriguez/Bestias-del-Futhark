@@ -1,12 +1,13 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public PlayerDataMult player;
+    public Toggle toggleWeapon;
     public void getCard(Card card){
         if (card.suit == "S" || card.suit == "C"){
             int damage = 0;
-            if(player.isWeapon){
+            if(toggleWeapon.isOn && player.Weapon() > 0){
                 if(player.Wear() >= card.number || player.Wear() == 0){
                     damage = card.number - player.Weapon();
                     if(damage < 0){
@@ -25,9 +26,7 @@ public class PlayerManager : MonoBehaviour
             player.getHealth(card.number);
         }
         if (card.suit == "D"){
-            if(player.isWeapon){
-                player.sellWeapon();
-            }
+            player.sellWeapon();
             player.getWeapon(card.number);
         }
     }
