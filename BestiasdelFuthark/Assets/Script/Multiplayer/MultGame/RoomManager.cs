@@ -75,6 +75,7 @@ public class RoomManager : MonoBehaviour
     }
 
     private void breakPhase(){
+        netListener.SendRoomData(roomCardData);
         defPhaseStarted = false;
         prepPhaseStarted = false;
         selectedIndex = -1;
@@ -163,21 +164,24 @@ public class RoomManager : MonoBehaviour
     }
     private void getEnemyCards()
     {
-        if(netListener.receivedCards.Count == roomCardData.Count)
+        if(!defPhaseStarted)
         {
-            for (int i = 0; i < roomCardData.Count; i++)
+            if(netListener.receivedCards.Count == roomCardData.Count)
             {
-                roomCardData[i] = netListener.receivedCards[i];
-                render.RenderCard(roomCardData[i], roomCards[i]);
+                for (int i = 0; i < roomCardData.Count; i++)
+                {
+                    roomCardData[i] = netListener.receivedCards[i];
+                    render.RenderCard(roomCardData[i], roomCards[i]);
+                }
+                netListener.receivedCards.Clear();
             }
-            netListener.receivedCards.Clear();
-        }
-        else
-        {
-            for (int i = 0; i < roomCardData.Count; i++)
+            else
             {
-                roomCardData[i] = deckManager.deck[15];
-                render.RenderCard(deckManager.deck[15], roomCards[i]);
+                for (int i = 0; i < roomCardData.Count; i++)
+                {
+                    roomCardData[i] = deckManager.deck[15];
+                    render.RenderCard(deckManager.deck[15], roomCards[i]);
+                }
             }
         }
     }
