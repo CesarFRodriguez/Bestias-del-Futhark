@@ -18,10 +18,6 @@ public class RoomManager : MonoBehaviour
     private int round = 0;
     public int selectedIndex = -1;
     private bool defPhaseStarted = false;
-    private bool prepPhaseStarted = false;
-    private bool breakPhaseStarted = false;
-
-    private bool started = false;
 
     private void Start() {
         deckManager = Object.FindFirstObjectByType<DeckManagerMult>();
@@ -33,7 +29,6 @@ public class RoomManager : MonoBehaviour
         {
             roomCardBehaviours.Add(roomCards[i].GetComponentInChildren<CardBehaviourMult>());
         }
-        started = true;
     }
     private void Update() {
         round = rm.round;
@@ -52,11 +47,10 @@ public class RoomManager : MonoBehaviour
     }
 
     private void prepPhase(){
-        EmptyRoom();
+        defPhaseStarted = false;
         UnblockAllCards();
         BlockCardsIfSelected();
-        prepPhaseStarted = true;
-        breakPhaseStarted = false;
+        
     }
     private void defensePhase(){
         selectedIndex = -1;
@@ -71,42 +65,13 @@ public class RoomManager : MonoBehaviour
             }
         }
         defPhaseStarted = true;
-        breakPhaseStarted = false;
     }
 
     private void breakPhase(){
-        defPhaseStarted = false;
-        prepPhaseStarted = false;
         selectedIndex = -1;
-        Punishment();
         BlockAllCards();
     }
-    private void EmptyRoom(){
-        if(!prepPhaseStarted && started)
-        {
-            for(int i = 0; i < roomCardData.Count; i++){
-                roomCardData[i] = deckManager.defaultCard();
-                roomCardData[i].suit = "B";
-                render.RenderCard(roomCardData[i], roomCards[i]);
-            }
-        }
-    }
-    private void Punishment(){
-        if(!breakPhaseStarted)
-        {
-            for(int i = 0; i < roomCardData.Count; i++){
-                if(roomCardData[i].cardID == "B"){
-                    Card tempCard = new Card();
-                    tempCard.suit = "S";
-                    tempCard.number = 5;
-                    player.getCard(tempCard);
-                    roomCardData[i].suit = "H";
-                    roomCardData[i].number = 5;
-                }
-            }
-            breakPhaseStarted = true;
-        }
-    }
+
     public void ChangeCard(int index, Card cardInfo)
     {
         render.RenderCard(cardInfo, roomCards[index]);
@@ -154,11 +119,7 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < roomCardBehaviours.Count; i++)
         {
-            if(!defPhaseStarted) 
-            {
-                roomCardBehaviours[i].isFree = true;
-                roomCardBehaviours[i].isUsed = false;
-            }
+            if(!defPhaseStarted && roomCardData[i].cardID != "B") roomCardBehaviours[i].isUsed = false;
         }
     }
     private void getEnemyCards()

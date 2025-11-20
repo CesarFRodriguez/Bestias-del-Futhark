@@ -11,20 +11,17 @@ public class PlayerDataMult : MonoBehaviour
     private int money = 0;
 
     public TextMeshProUGUI healthText, weaponText, moneyText, wearText;
-    public GameObject LosePanel;
-
+    
     private void Start() {
-        LosePanel.SetActive(false);
         wear.Add(0);
         wearText.text = wear[wear.Count - 1].ToString();
     }
     public void getDamage(int damage){
         health -= damage;
-        if(health <= 0) LosePanel.SetActive(true);
         healthText.text = health.ToString() + "/20";
     }
     public void getHealth(int heal){
-        health += heal;
+        health += health;
         healthText.text = health.ToString() + "/20";
     }
     public void getWear(int damage){
