@@ -14,12 +14,15 @@ public class RoundManager : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI roundInfo;
 
+    public bool ready = false;
+    public bool enemyReady = false;
+
     private void Start() {
         nextRound.onClick.AddListener(NextRound);
     }
     private void Update() {
         nextRound.interactable = isReady;
-
+        if (round == 0) ReadyChecker();
         timeLeft += Time.deltaTime;
         float remainingTime = actualTime(round);
         toTime(timeLeft);
@@ -66,10 +69,27 @@ public class RoundManager : MonoBehaviour
         }
         string timeStr = minutes.ToString() + ':' + arr[1] + arr[0];
         timeText.text = timeStr;
+        
     }
 
     public void NextRound(){
-        if(round > 3) round = -1;
-        round++;
+        ready = true;
+    }
+
+    public void PassRound(){
+        if(round == 0)
+        {
+            round = 1;
+            ready = false;
+            enemyReady = false;
+        }
+    }
+
+    private void ReadyChecker()
+    {
+        if(ready && enemyReady)
+        {
+            PassRound();
+        }
     }
 }

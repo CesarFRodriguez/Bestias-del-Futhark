@@ -43,7 +43,7 @@ public class RenderManager : MonoBehaviour
             case "D": suitColor = new Color(1f, 0.7f, 0.5f); break;
             case "C": suitColor = new Color(0.5f, 0.5f, 1f); break;
             case "S": suitColor = new Color(0.5f, 0.7f, 1f); break;
-            default: suitColor = Color.gray; break;
+            default: suitColor = Color.white; break;
         }
         return suitColor;
     }
