@@ -21,28 +21,22 @@ public class RoomManager : MonoBehaviour
 
     private void Start() {
         deckManager = Object.FindFirstObjectByType<DeckManagerMult>();
+
         for (int i = 0; i < roomCards.Count; i++)
-        {
             roomCardData.Add(deckManager.defaultCard());
-        }
+
         for (int i = 0; i < roomCards.Count; i++)
-        {
             roomCardBehaviours.Add(roomCards[i].GetComponentInChildren<CardBehaviourMult>());
-        }
     }
+
     private void Update() {
         round = rm.round;
+
         switch(round)
         {
-            case 0:
-                prepPhase();
-                break;
-            case 2:
-                defensePhase();
-                break;
-            default:
-                breakPhase();
-                break;
+            case 0:  prepPhase(); break;
+            case 2:  defensePhase(); break;
+            default: breakPhase(); break;
         }
     }
 
@@ -50,13 +44,15 @@ public class RoomManager : MonoBehaviour
         defPhaseStarted = false;
         UnblockAllCards();
         BlockCardsIfSelected();
-        
     }
+
     private void defensePhase(){
         selectedIndex = -1;
         UnblockAllCards();
         getEnemyCards();
+
         List<bool> selected = boolChecker();
+
         if(selectedIndex != -1){
             if(roomCardBehaviours[selectedIndex].isSelected)
             {
@@ -68,12 +64,10 @@ public class RoomManager : MonoBehaviour
     }
 
     private void breakPhase(){
-<<<<<<< HEAD
-=======
-        netListener.SendRoomData(roomCardData);
+        if (netListener != null)
+            netListener.SendRoomData(roomCardData);
+
         defPhaseStarted = false;
-        prepPhaseStarted = false;
->>>>>>> 46daeb54dbc27ab5e5254737c173cf68c639b5ee
         selectedIndex = -1;
         BlockAllCards();
     }
@@ -83,51 +77,54 @@ public class RoomManager : MonoBehaviour
         render.RenderCard(cardInfo, roomCards[index]);
         roomCardData[index] = cardInfo;
     }
+
     private void BlockCardsIfSelected()
     {
         List<bool> selected = boolChecker();
+
         if (selected.Contains(true))
         {
-        for (int i = 0; i < roomCardBehaviours.Count; i++)
-            {
+            for (int i = 0; i < roomCardBehaviours.Count; i++)
                 roomCardBehaviours[i].isFree = false;
-            }
-        }else{
+        }
+        else
+        {
             selectedIndex = -1;
             for (int i = 0; i < roomCardBehaviours.Count; i++)
-            {
                 roomCardBehaviours[i].isFree = true;
-            }
         }
     }
+
     private List<bool> boolChecker()
     {
         List<bool> selected = new List<bool>();
+
         for (int i = 0; i < roomCardBehaviours.Count; i++)
         {
             if(roomCardBehaviours[i].isSelected){
                 selected.Add(true);
                 selectedIndex = i;
-            } else {
-                selected.Add(false);
-            }
+            } 
+            else selected.Add(false);
         }
         return selected;
     }
+
     private void BlockAllCards()
     {
         for (int i = 0; i < roomCardBehaviours.Count; i++)
-        {
             roomCardBehaviours[i].isUsed = true;
-        }
     }
+
     private void UnblockAllCards()
     {
         for (int i = 0; i < roomCardBehaviours.Count; i++)
         {
-            if(!defPhaseStarted && roomCardData[i].cardID != "B") roomCardBehaviours[i].isUsed = false;
+            if(!defPhaseStarted && roomCardData[i].cardID != "B")
+                roomCardBehaviours[i].isUsed = false;
         }
     }
+
     private void getEnemyCards()
     {
         if(!defPhaseStarted)
