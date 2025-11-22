@@ -23,9 +23,6 @@ public class HandManager : MonoBehaviour
     public RenderManager renderManager;
     public RoundManager roundManager;
     public RoomManager roomManager;
-    public PlayerManager player;
-
-    private bool defPhaseStarted = false;
 
     private void Start() {
         deckManager = Object.FindFirstObjectByType<DeckManagerMult>();
@@ -48,7 +45,6 @@ public class HandManager : MonoBehaviour
             cardsInRoom.Add(roomManager.roomCards[i].GetComponentInChildren<CardBehaviourMult>());
         }
     }
-
     private void Update() {
         round = roundManager.round;
         switch(round)
@@ -90,7 +86,6 @@ public class HandManager : MonoBehaviour
         }
     }
     private void prepPhase(){
-        LookForFree();
         UnblockAllCards();
         CardInRoom();
         BlockCardsIfSelected();
@@ -98,42 +93,38 @@ public class HandManager : MonoBehaviour
     }
     private void defensePhase(){
         UnblockAllCards();
-        List<bool> selected = boolChecker();
-        if(selectedIndex != -1){
-            if(cardBehaviours[selectedIndex].isSelected)
-            {
-                cardBehaviours[selectedIndex].isUsed = true;
-                player.getCard(hand[selectedIndex]);
-                hand[selectedIndex] = deckManager.defaultCard();
-                renderManager.RenderCard(hand[selectedIndex], cards[selectedIndex]);
-            }
-        }
-        defPhaseStarted = true;
     }
     private void breakPhase(){
         BlockAllCards();
-        selectedIndex = -1;
         prepPhaseStarted = false;
-        defPhaseStarted = false;
     }
 
     private void BlockCardsIfSelected()
     {
-        List<bool> selected = boolChecker();
-        if (selected.Contains(true))
-        {
-            for (int i = 0; i < cardBehaviours.Count; i++)
+        List<bool> selected = new List<bool>();
+        for (int i = 0; i < cardBehaviours.Count; i++)
             {
-                cardBehaviours[i].isFree = false;
+                if(cardBehaviours[i].isSelected){
+                    selected.Add(true);
+                    selectedIndex = i;
+                } else {
+                    selected.Add(false);
+                }
             }
-        }
-        else{
-            selectedIndex = -1;
-            for (int i = 0; i < cardBehaviours.Count; i++)
+            if (selected.Contains(true))
             {
-                cardBehaviours[i].isFree = true;
+                for (int i = 0; i < cardBehaviours.Count; i++)
+                {
+                    cardBehaviours[i].isFree = false;
+                }
             }
-        }
+            else{
+                selectedIndex = -1;
+                for (int i = 0; i < cardBehaviours.Count; i++)
+                {
+                    cardBehaviours[i].isFree = true;
+                }
+            }
     }
     private void BlockAllCards()
     {
@@ -147,23 +138,8 @@ public class HandManager : MonoBehaviour
     {
         for (int i = 0; i < cardBehaviours.Count; i++)
         {
-            if(hand[i].cardID != "B")
-            {
-                if(!defPhaseStarted && !prepPhaseStarted ) cardBehaviours[i].isUsed = false;
-            }
+            if(prepPhaseStarted && hand[i].cardID != "B") cardBehaviours[i].isUsed = false;
             renderManager.RenderCard(hand[i], cards[i]);
-        }
-    }
-    private void LookForFree(){
-        if(!prepPhaseStarted){
-            for(int i = 0; i < hand.Count; i++)
-            {
-                if(hand[i].cardID == "B")
-                {
-                    freeCard[i] = true;
-                }
-                DrawCard(i);
-            }
         }
     }
     private void DrawCard(int i)
@@ -181,20 +157,5 @@ public class HandManager : MonoBehaviour
     public void ChangeCard(int index, Card cardInfo)
     {
         renderManager.RenderCard(cardInfo, cards[index]);
-    }
-
-    private List<bool> boolChecker()
-    {
-        List<bool> selected = new List<bool>();
-        for (int i = 0; i < cardBehaviours.Count; i++)
-        {
-            if(cardBehaviours[i].isSelected){
-                selected.Add(true);
-                selectedIndex = i;
-            } else {
-                selected.Add(false);
-            }
-        }
-        return selected;
     }
 }
