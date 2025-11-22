@@ -11,6 +11,7 @@ public class GameNetworkListener : MonoBehaviour
     public RoundManager rm;
     public bool enemyReady = false;
     public int enemyHealth = 20;
+    private int lastHealth = -1;
     private void Start()
     {
         network = Object.FindFirstObjectByType<NetworkManagerP2P>();
@@ -26,13 +27,14 @@ public class GameNetworkListener : MonoBehaviour
 
     private void Update() {
         enemyHealthText.text = enemyHealth.ToString() + "/20";
-        SendHealthUpdate(player.health);
-        SendRoomData(receivedCards);
-        if(rm.round == 0)
+
+        if (player.health != lastHealth)
         {
-            SendPlayerReady();
+            lastHealth = player.health;
+            SendHealthUpdate(lastHealth);
         }
     }
+
 
     private void HandleMessage(MessageData msg)
     {
@@ -61,17 +63,59 @@ public class GameNetworkListener : MonoBehaviour
         };
         network.SendMessage(msg);
     }
-    private void ChangeEnemyHealth(MessageData msg){
-        enemyHealth = int.Parse(msg.payload);
+    private void ChangeEnemyHealth(MessageData msg)
+    {
+        if (int.TryParse(msg.payload, out int h))
+            enemyHealth = h;
+            if (enemyHealth <= 0)
+            {
+                rm.ready = false;
+                enemyReady = false;
+                player.WinGame();
+            }
+        else
+            Debug.LogWarning("[NET] HEALTH_UPDATE payload inválido: " + msg.payload);
     }
+
 
     private void ChangeCardData(MessageData msg)
     {
-        for (int i = 0; i < receivedCards.Count; i++)
+        if (string.IsNullOrEmpty(msg.payload))
         {
-            receivedCards[i] = JsonUtility.FromJson<Card>(msg.payload.Split('|')[i]);
+            Debug.LogWarning("[NET] ROOM_DATA payload vacío.");
+            return;
         }
+
+        string[] parts = msg.payload.Split('|');
+
+        receivedCards.Clear();
+
+        foreach (string json in parts)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                Debug.LogWarning("[NET] ROOM_DATA parte vacía, saltando.");
+                continue;
+            }
+
+            try
+            {
+                Card c = JsonUtility.FromJson<Card>(json);
+                if (c != null)
+                    receivedCards.Add(c);
+                else
+                    Debug.LogWarning("[NET] JsonUtility devolvió null en ROOM_DATA.");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[NET] Error parseando ROOM_DATA: {ex.Message}\nJSON: {json}");
+            }
+        }
+
+        Debug.Log($"[NET] ROOM_DATA recibido con {receivedCards.Count} cartas.");
     }
+
+
 
     public void SendRoomData(List<Card> sentCards)
     {

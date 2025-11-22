@@ -23,7 +23,7 @@ public class RoundManager : MonoBehaviour
         if (round != 0) nextRound.interactable = false; else nextRound.interactable = true;
         if (round == 0) ReadyChecker();
         timeLeft += Time.deltaTime;
-        netListener.enemyReady = enemyReady;
+        if (netListener != null) enemyReady = netListener.enemyReady;
         float remainingTime = actualTime(round);
         toTime(timeLeft);
         if(timeLeft > remainingTime){
@@ -74,6 +74,7 @@ public class RoundManager : MonoBehaviour
 
     public void NextRound(){
         ready = true;
+        netListener.SendPlayerReady();
     }
 
     public void PassRound(){

@@ -265,9 +265,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   receivedCards: []
-  player: {fileID: 0}
-  enemyHealthText: {fileID: 0}
-  rm: {fileID: 0}
+  player: {fileID: 723325684}
+  enemyHealthText: {fileID: 1388741814}
+  rm: {fileID: 1824158680}
   enemyReady: 0
   enemyHealth: 20
 --- !u!1 &180213800
@@ -3309,7 +3309,7 @@ Transform:
   m_GameObject: {fileID: 1145620415}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: -9.19}
+  m_LocalPosition: {x: 0, y: 0.7, z: -6.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6826,7 +6826,7 @@ Transform:
   m_GameObject: {fileID: 1782324217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.64, z: -10}
+  m_LocalPosition: {x: 0, y: 0.64, z: -7.6700006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7150,9 +7150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   round: 0
-  timePrep: 15
-  timeDef: 15
-  timeRest: 2
+  timePrep: 25
+  timeDef: 25
+  timeRest: 5
   timeLeft: 0
   nextRound: {fileID: 1769961625}
   timeText: {fileID: 214125233}

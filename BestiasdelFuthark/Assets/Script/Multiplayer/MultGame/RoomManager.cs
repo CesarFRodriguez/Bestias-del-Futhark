@@ -75,7 +75,6 @@ public class RoomManager : MonoBehaviour
     }
 
     private void breakPhase(){
-        netListener.SendRoomData(roomCardData);
         defPhaseStarted = false;
         prepPhaseStarted = false;
         selectedIndex = -1;
@@ -95,17 +94,32 @@ public class RoomManager : MonoBehaviour
     private void Punishment(){
         if(!breakPhaseStarted)
         {
-            for(int i = 0; i < roomCardData.Count; i++){
-                if(roomCardData[i].cardID == "B"){
-                    Card tempCard = new Card();
-                    tempCard.suit = "S";
-                    tempCard.number = 5;
-                    player.getCard(tempCard);
-                    roomCardData[i].suit = "H";
-                    roomCardData[i].number = 5;
+            if(rm.round == 1)
+            {
+                for(int i = 0; i < roomCardData.Count; i++){
+                    if(roomCardData[i].cardID == "B"){
+                        Card tempCard = new Card();
+                        tempCard.suit = "S";
+                        tempCard.number = 5;
+                        player.getCard(tempCard);
+                        roomCardData[i] = deckManager.deck[29];
+                    }
                 }
+                netListener.SendRoomData(roomCardData);
+                breakPhaseStarted = true;
             }
-            breakPhaseStarted = true;
+            if(rm.round == 3)
+            {
+                for(int i = 0; i < roomCardData.Count; i++){
+                    if(roomCardData[i].cardID != "B"){
+                        Card tempCard = new Card();
+                        tempCard.suit = "S";
+                        tempCard.number = 3;
+                        player.getCard(tempCard);
+                    }
+                }
+                breakPhaseStarted = true;
+            }
         }
     }
     public void ChangeCard(int index, Card cardInfo)
@@ -164,9 +178,9 @@ public class RoomManager : MonoBehaviour
     }
     private void getEnemyCards()
     {
-        if(!defPhaseStarted)
+        if (!defPhaseStarted)
         {
-            if(netListener.receivedCards.Count == roomCardData.Count)
+            if (netListener.receivedCards != null && netListener.receivedCards.Count == roomCardData.Count)
             {
                 for (int i = 0; i < roomCardData.Count; i++)
                 {
@@ -179,10 +193,14 @@ public class RoomManager : MonoBehaviour
             {
                 for (int i = 0; i < roomCardData.Count; i++)
                 {
-                    roomCardData[i] = deckManager.deck[15];
-                    render.RenderCard(deckManager.deck[15], roomCards[i]);
+                    if (roomCardData[i] == null || roomCardData[i].cardID == "B")
+                    {
+                        roomCardData[i] = deckManager.deck[Random.Range(0, 43)];
+                    }
+                    render.RenderCard(roomCardData[i], roomCards[i]);
                 }
             }
         }
     }
+
 }
