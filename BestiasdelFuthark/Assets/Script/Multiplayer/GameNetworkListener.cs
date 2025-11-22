@@ -29,6 +29,7 @@ public class GameNetworkListener : MonoBehaviour
         enemyHealthText.text = enemyHealth.ToString() + "/20";
 
         if (player.health != lastHealth)
+
         {
             lastHealth = player.health;
             SendHealthUpdate(lastHealth);

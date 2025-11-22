@@ -45,6 +45,12 @@ public class DeckManagerMult : MonoBehaviour
 
     public void RemoveFromRemain(int quantity)
     {
+        if (remain.Count == 0)
+        {
+            remain = new List<Card>(deck);
+            remain.RemoveAt(remain.Count - 1);
+            remain.Shuffle();
+        }
         for (int i = 0; i < quantity && remain.Count > 0; i++)
         {
             remain.RemoveAt(0);

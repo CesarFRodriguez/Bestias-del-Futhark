@@ -7,10 +7,10 @@ public class MechanicsManagerMult : MonoBehaviour
     public PlayerManager interaction;
     private int price = 5;
 
-    public Button skip, removeWear, sellWeapon;
+    public Button removeWear, sellWeapon;
 
     private void Start(){
-        skip.onClick.AddListener(skipInteraction);
+
         removeWear.onClick.AddListener(removeWearInteraction);
         sellWeapon.onClick.AddListener(sellWeaponInteraction);
         
@@ -24,9 +24,9 @@ public class MechanicsManagerMult : MonoBehaviour
         }
     }
 
-    public void skipInteraction(){
-        
-    }
+
+
+
 
     public void removeWearInteraction(){
         if(player.Wear() == 0) return;

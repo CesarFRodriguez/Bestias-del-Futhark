@@ -27,6 +27,8 @@ public class PlayerManager : MonoBehaviour
         }
         if (card.suit == "D"){
             player.sellWeapon();
+
+
             player.getWeapon(card.number);
         }
     }
