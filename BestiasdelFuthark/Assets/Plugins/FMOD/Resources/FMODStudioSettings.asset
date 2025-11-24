@@ -401,7 +401,7 @@ MonoBehaviour:
   EncryptionKey: 
   ImportType: 0
   TargetAssetPath: FMODBanks
-  TargetBankFolder: 
+  TargetBankFolder: Assets/Audios/AudioBestias/Build/Desktop
   EventLinkage: 0
   SerializeGUIDsOnly: 0
   LoggingLevel: 2
