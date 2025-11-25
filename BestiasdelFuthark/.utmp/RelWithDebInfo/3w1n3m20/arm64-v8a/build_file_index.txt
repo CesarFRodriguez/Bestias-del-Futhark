@@ -1,0 +1,2 @@
+C:\Bestias-del-Futhark\BestiasdelFuthark\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Bestias-del-Futhark\BestiasdelFuthark\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

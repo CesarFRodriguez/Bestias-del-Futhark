@@ -1,0 +1,19 @@
+# ninja log v5
+2974	4759	7857953900288915	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ce531baa36de11f0
+10	2953	7857953881775342	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ff17ad222b5cf9e2
+31	2973	7857953881785317	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4085ca420772b8d1
+38	3030	7857953881944905	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	edf3db99e11f6616
+2964	4475	7857953897451091	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	d45537790b88b61a
+16	3039	7857953882303926	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	e01f58c7fecdffdf
+4760	4924	7857953901933582	C:/Bestias-del-Futhark/BestiasdelFuthark/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3w1n3m20/obj/arm64-v8a/libgame.so	5e19c7934bc16f42
+23	3332	7857953885860725	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	d029b58cd97554c0
+0	3465	7857953887222926	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	4bcdf4da91822ddb
+41	12807	7857987466500472	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	edf3db99e11f6616
+70	12843	7857987466620139	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ff17ad222b5cf9e2
+92	12854	7857987466749796	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	d45537790b88b61a
+61	12862	7857987466839558	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	e01f58c7fecdffdf
+86	13113	7857987469667300	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	d029b58cd97554c0
+76	13312	7857987471771673	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	4bcdf4da91822ddb
+12807	14283	7857987481588835	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4085ca420772b8d1
+12843	14795	7857987486723910	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ce531baa36de11f0
+14796	15606	7857987494792866	C:/Bestias-del-Futhark/BestiasdelFuthark/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3w1n3m20/obj/arm64-v8a/libgame.so	5e19c7934bc16f42
